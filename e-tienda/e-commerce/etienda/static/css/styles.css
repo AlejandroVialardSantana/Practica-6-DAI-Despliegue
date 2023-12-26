@@ -1,0 +1,32 @@
+.product-image {
+    height: 200px;
+    object-fit: contain;
+}
+
+.search-form {
+    padding-left: 0 !important;
+}
+
+.btn-go-top {
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    background-color: rgb(7, 51, 164);
+    color: white;
+    cursor: pointer;
+    padding: 10px 15px;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 22px;
+    line-height: 20px;
+    z-index: 99;
+}
+
+.btn-go-top:hover {
+    background-color: #555;
+    transition: all 0.5s ease-in-out;
+}
+
+.bi-star-fill.checked {
+    color: orange;
+}

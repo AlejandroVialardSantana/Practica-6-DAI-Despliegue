@@ -1,0 +1,31 @@
+{% extends "etienda/base.html" %}
+
+{% load django_bootstrap5 %}
+
+{% block content %}
+
+{% if error_message %}
+<div class="container mt-5">
+    <div class="alert alert-danger" role="alert">
+        {{ error_message }}
+    </div>
+</div>
+{% endif %}
+
+{% if user.is_authenticated and user.is_staff %}
+
+<div class="container mt-5">
+    <h2>Add New Product</h2>
+    
+    {% bootstrap_messages %}
+    
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <button type="submit" class="btn btn-primary mt-2 mb-5">Submit</button>
+    </form>
+</div>
+
+{% endif %}
+
+{% endblock %}

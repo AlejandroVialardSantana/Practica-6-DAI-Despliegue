@@ -1,0 +1,169 @@
+<!-- etienda/base.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Commerce</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{% static '/css/styles.css' %}">
+</head>
+
+<body>
+    {% block header %}
+    <a id="top-of-page"></a>
+    <header class="header bg-primary">
+        <nav class="navbar container navbar-expand-lg">
+            <div class="container-fluid">
+                <a class="navbar-brand fw-bold text-white" href="/etienda/">E-commerce</a>
+                <button class="navbar-toggler mb-2" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+
+                    <form class="d-flex  p-2 search-form" role="search" method="get" action="/etienda/search">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"
+                            name="query">
+                        <button class="btn bg-success text-white" type="submit">Search</button>
+                    </form>
+
+                    <ul class="navbar-nav mb-2 mb-lg-0 fw-bold">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-white" href="#" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Categories
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item"
+                                        href="{% url 'etienda:category_view' 'men-clothing' %}">Men's Clothing</a></li>
+                                <li><a class="dropdown-item"
+                                        href="{% url 'etienda:category_view' 'women-clothing' %}">Women's Clothing</a>
+                                </li>
+                                <li><a class="dropdown-item"
+                                        href="{% url 'etienda:category_view' 'jewelery' %}">Jewelery</a></li>
+                                <li><a class="dropdown-item"
+                                        href="{% url 'etienda:category_view' 'electronics' %}">Electronics</a></li>
+                            </ul>
+
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="#">Orders</a>
+                        </li>
+
+                        {% if user.is_authenticated and user.is_staff %}
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="/etienda/new_product_form"><i
+                                    class="bi bi-plus-circle text-white me-2"></i>New product</a>
+                        </li>
+                        {% endif %}
+
+                        {% if user.is_authenticated %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-person"></i>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><span class="dropdown-item">Hello, {{ user.username }}</span></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                    <li><a class="dropdown-item" href="/accounts/password_change/">Change Password</a></li>
+                                </li>
+                                <li><a class="dropdown-item" href="/accounts/logout">Log Out</a></li>
+                            </ul>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="/accounts/login">Log In</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    {% endblock %}
+
+    {% block content %}
+    {% endblock %}
+
+    <footer class="bg-primary text-white mt-5">
+        <div class="container py-4">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">E-commerce</h5>
+                    <p>
+                        Esta es tu tienda en línea donde puedes encontrar una variedad de productos de diferentes categorías.
+                    </p>
+                </div>
+    
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Enlaces rápidos</h5>
+    
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="{% url 'etienda:category_view' 'men-clothing' %}" class="text-white text-decoration-none">Men's Clothing</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'etienda:category_view' 'women-clothing' %}" class="text-white text-decoration-none">Women's Clothing</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'etienda:category_view' 'jewelery' %}" class="text-white text-decoration-none">Jewelery</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'etienda:category_view' 'electronics' %}" class="text-white text-decoration-none">Electronics</a>
+                        </li>
+                    </ul>
+                </div>
+    
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Síguenos</h5>
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="https://www.linkedin.com/in/alejandrovialardsantana/" class="text-white text-decoration-none">
+                                <i class="bi bi-linkedin"></i> LinkedIn
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/alejandrovialardsantana" class="text-white text-decoration-none">
+                                <i class="bi bi-github"></i> GitHub
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase">Contáctanos</h5>
+                    <ul class="list-unstyled">
+                        <li>
+                            <span class="text-white">Dirección: Calle Falsa 123</span>
+                        </li>
+                        <li>
+                            <span class="text-white">Teléfono: +1 234 567 890</span>
+                        </li>
+                        <li>
+                            <span class="text-white">Email: contacto@etienda.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static '/js/main.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

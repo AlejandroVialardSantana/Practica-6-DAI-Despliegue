@@ -1,0 +1,40 @@
+{% extends 'etienda/base.html' %}
+
+{% load django_bootstrap5 %}
+
+{% block content %}
+
+<div class="container mt-2">
+    <h1 class="mb-4 text-center">Welcome to our e-commerce!</h1>
+
+    {% bootstrap_messages %}
+
+    <div class="row">
+        {% for product in products %}
+        <div class="col-md-4 mb-3">
+            <div class="card h-100">
+                <img class="card-img-top img-fluid w-50 mx-auto mt-3 product-image"
+                    src="{{ request.scheme }}://{{ request.get_host }}/{{ product.image }}" alt="{{ product.title }}">
+                <div class="card-body text-center">
+                    <h5 class="card-title">{{ product.title }}</h5>
+                    <p class="card-text">{{ product.description|truncatewords:20 }}</p>
+                    <div class="star-rating text-center mb-2" data-product-id="{{ product.id }}"
+                        data-is-authenticated="{{ user.is_authenticated }}" data-user-id="{{ user.id }}">
+                        {% for i in "12345" %}
+                        <span class="bi bi-star-fill" data-value="{{ i }}" onclick="rateProduct(this)"></span>
+                        {% endfor %}
+                    </div>
+                    <p class="text-center mb-2">Rating:
+                        <span class="rate-count" id="rate-count-{{ product.id }}">{{ product.rating.count }}</span>
+                    </p>
+                    <p class="text-center mb-2">Average rating:
+                        <span class="rate-average" id="rate-average-{{ product.id }}">{{ product.rating.rate }}</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<a href="#top-of-page" class="btn-go-top text-decoration-none" title="Go to top">↑</a>
+{% endblock %}

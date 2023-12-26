@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  app:
+    build: ./e-commerce
+    volumes:
+      - static_volume:/e-commerce/staticfiles
+      - media_volume:/e-commerce/media
+    depends_on:
+      - mongo
+
+  nginx:
+    build: ./e-commerce/nginx
+    ports:
+      - "80:80"
+    volumes:
+      - static_volume:/var/www/static/
+      - media_volume:/var/www/media/
+      - ../frontend-react/dist:/var/www/react/
+    depends_on:
+      - app
+
+  mongo:
+    image: mongo:6.0
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_volume:/data/db
+
+volumes:
+  static_volume:
+  mongo_volume:
+  media_volume:
